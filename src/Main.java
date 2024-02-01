@@ -36,10 +36,7 @@ public class Main {
 
     private static Insert separador(){
         System.out.print("""
-                    _____SEPARAR DATOS_____
-                    --\\n para salto de linea
-                    --\\s para espacio
-                    --->>\s""");
+                    -->\s""");
         String eat = scan.next();
         return new Insert(eat);
     }
