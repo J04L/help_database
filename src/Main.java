@@ -16,15 +16,7 @@ public class Main {
         Vector<String> vector = new Vector<>(10, 5);
         Vector<String> exit = new Vector<>(Arrays.asList(setElements(vector).split(" ")));
         Insert insert;
-        if (exit.contains("-s")){
-            System.out.print("""
-                    _____SEPARAR DATOS_____
-                    --\\n para salto de linea
-                    --\\s para espacio
-                    --->>\s""");
-            String eat = scan.next();
-            insert = new Insert(eat);
-        }
+        if (exit.contains("-s")) insert = separador();
         else insert = new Insert();
         insert.insertNSS(vector, exit.contains("-i"));
     }
@@ -40,5 +32,15 @@ public class Main {
             if (exit.matches()) return row;
             vector.add(row);
         }
+    }
+
+    private static Insert separador(){
+        System.out.print("""
+                    _____SEPARAR DATOS_____
+                    --\\n para salto de linea
+                    --\\s para espacio
+                    --->>\s""");
+        String eat = scan.next();
+        return new Insert(eat);
     }
 }
