@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /*
 ----COMANDOS----
@@ -15,33 +16,38 @@ exit --> salir del modo escritura
  */
 public class Main {
     public static Scanner scan = new Scanner(System.in);
-    private static final ArrayList<String> programs = new ArrayList<>(Arrays.asList("create", "insert", "update"));
+    private static final ArrayList<String> programs = new ArrayList<>(Arrays.asList("create", "insert", "update", "manual"));
     public static void main(String[] args) {
         selectProgram();
     }
-
-    private static String[] comandReader(String comandLine) {
-        return comandLine.replaceAll(" ", "").split("-");
-    }
-    private static String[] checkProgram(){
-        String[] comands;
+    private static ArrayList<String> chooseFunction(){
         while (true){
             System.out.print("------>>> ");
-            comands = comandReader(scan.nextLine());
-            if (programs.contains(comands[0])) return comands;
-            System.out.println("-----[ERROR] función " + comands[0] + " no registrada");
+            ArrayList<String> comands = new ArrayList<>(Arrays.asList(scan.nextLine().split(" ")));
+            if (programs.contains(comands.get(0))) return comands;
+            System.out.println("-----[ERROR] función " + comands.get(0) + " no registrada");
         }
     }
     private static void selectProgram(){
-        String[] function = checkProgram();
-        switch(programs.indexOf(function[0])){
+        ArrayList<String> functionList = chooseFunction();
+        String program = functionList.get(0);
+        functionList.remove(0);
+
+        String file = null;
+        if(Functions.filePattern.matcher(functionList.get(0)).matches()){
+            file = functionList.get(0).replaceAll("\"", "");
+            functionList.remove(0);
+        }
+
+
+        switch(programs.indexOf(program)){
             case 0:
                 System.out.println("En proceso de creación...");
                 break;
             case 1:
-                String[] comands = Arrays.copyOfRange(function,1, function.length);
+                String[] comands = functionList.toArray(new String[0]);
                 if(Insert.machesAnyPattern(comands)){
-                    Insert insert = new Insert(comands);
+                    Insert insert = new Insert(comands, file);
                     insert.run();
                 }
                 else {

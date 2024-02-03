@@ -2,32 +2,32 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
-public class Insert {
+public class Insert extends Functions {
+    private final String defFile = "insertValues.txt";
     private String eat;
-    private String table;
     private boolean putInsert;
     public static final Pattern[] comandsPattern = {
-            Pattern.compile("^s(\\(.*\\))"),
-            Pattern.compile("i")
+            Pattern.compile("^-s\\(.*\\)"),
+            Pattern.compile("-i")
     };
-    public Insert(String[] comands){
+    public Insert(String[] comands, String file){
+        setFile(file);
         eat = ", ";
         comandRead(comands);
     }
     public void run() {
-        valuesWriter();
+        if (file.equals(defFile)) valuesWriter();
         valuesReader();
     }
     public void valuesReader(){
         Scanner scan = new Scanner(System.in);
-        try(BufferedReader reader = new BufferedReader(new FileReader("insertValues.txt"))){
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
             System.out.println("----------------------------------------------");
             if (putInsert){
                 System.out.print("Table name --> ");
@@ -53,8 +53,8 @@ public class Insert {
                 }
             }
             System.out.println("----------------------------------------------");
-        }catch (Exception e){
-            System.out.println("-----[ERROR]");
+        }catch (IOException e){
+            System.out.println("-----[ERROR] No existe el fichero " + file);
         }
     }
 
@@ -69,25 +69,25 @@ public class Insert {
                     break;
                 case 2: break;
                 case -1:
-                    System.out.println("-----[ERROR] No existe el comando -" + comand);
+                    System.out.println("-----[ERROR] No existe el comando " + comand);
                     break;
             }
         }
     }
-    private int findPattern(String re){
+    private int findPattern(String comand){
         int i=0;
         while (i<comandsPattern.length){
-            if(comandsPattern[i].matcher(re).matches()) return i;
+            if(comandsPattern[i].matcher(comand).matches()) return i;
             i++;
         }
         return -1;
     }
-    public static boolean machesAnyPattern(String[] comands){
-        for (String re : comands){
+    public static boolean machesAnyPattern(String[] comandsList){
+        for (String comand : comandsList){
             boolean maches = false;
             int i =0;
             while (i < comandsPattern.length) {
-                if (comandsPattern[i].matcher(re).matches()) {
+                if (comandsPattern[i].matcher(comand).matches()) {
                     maches = true;
                     break;
                 }
@@ -100,9 +100,12 @@ public class Insert {
     public void setEat(String comand){
         this.eat = comand.substring(2).replaceAll("[()]", "");
     }
-    private static void valuesWriter(){
+    public void setFile(String file){
+        this.file = file==null?defFile:file;
+    }
+    private void valuesWriter(){
         Scanner scan = new Scanner(System.in);
-        try(FileWriter writer = new FileWriter("insertValues.txt")){
+        try(FileWriter writer = new FileWriter(file)){
             while(true){
                 System.out.print("- ");
                 String row = scan.nextLine();
