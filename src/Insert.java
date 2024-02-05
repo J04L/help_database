@@ -29,7 +29,6 @@ public class Insert extends Functions {
     }
     public void valuesReader(){
         try(BufferedReader reader = new BufferedReader(new FileReader(file))){
-            System.out.println("----------------------------------------------");
             String row;
             while((row = reader.readLine()) != null){
                 ArrayList<String> rowList = new ArrayList<>(Arrays.asList(row.split(eat)));
@@ -44,7 +43,6 @@ public class Insert extends Functions {
                     }
                 }
             }
-            System.out.println("----------------------------------------------");
         }catch (IOException e){
             System.out.println("-----[ERROR] No existe el fichero " + file);
         }
@@ -55,7 +53,7 @@ public class Insert extends Functions {
         String table = scan.nextLine();
         System.out.print("Colums --> ");
         String colums = scan.nextLine();
-        System.out.println("----------------------------------------------" +
+        System.out.println("--------------------------------------------------------------------------------------------------------" +
                 "\ninsert into " + table + (colums.equals("none")? "" : "(" + colums + ")") + " values");
     }
     public void comandsExecuter(){
@@ -72,8 +70,10 @@ public class Insert extends Functions {
             }
         }
         if (file.equals(defFile)) valuesWriter();
+        System.out.println("--------------------------------------------------------------------------------------------------------");
         if(putInsert) printInsert();
         valuesReader();
+        System.out.println("--------------------------------------------------------------------------------------------------------");
 
     }
     public void setEat(String comand){

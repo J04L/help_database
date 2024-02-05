@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 public class Functions {
-    protected static final ArrayList<String> programs = new ArrayList<>(Arrays.asList("create", "insert", "update", "manual"));
+    protected static final ArrayList<String> programs = new ArrayList<>(Arrays.asList("create", "insert", "update", "manual", "exit"));
     //nombre de los programs a usar
     protected String file;
     //nombre del archivo
@@ -10,7 +10,7 @@ public class Functions {
     //patrón de cada comando de cada funcionalidad (Insert, Create, Update...)
     protected String[] comands;
     //comandos sin filtro (no se ha comprobado si hay errores de formulación)
-    public static final Pattern filePattern = Pattern.compile("^\".*\\.txt\"$"); //patrón de los archivos
+    public static final Pattern filePattern = Pattern.compile("^.*\\.txt$"); //patrón de los archivos
 
     public static String getFile(ArrayList<String> functionList /*lista de comandos sin el nombre de la función*/){
         //se comprueba si se ha insertado un archivo y que el nombre siga con el patrón
@@ -18,7 +18,7 @@ public class Functions {
         if(filePattern.matcher(functionList.get(0)).matches()){
             //¿el primer elemento coincide con el patrón de archivos?
 
-            file = functionList.get(0).replaceAll("\"", "");
+            file = functionList.get(0);
             //si conicide le quitamos las comillas
 
             functionList.remove(0);

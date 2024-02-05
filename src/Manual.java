@@ -7,11 +7,10 @@ public class Manual extends Functions{
         setComandsPattern();
     }
     private void setComandsPattern() {
-        Pattern[] comands = new Pattern[programs.size()];
+        comandsPattern = new Pattern[programs.size()-1];
         for (int i =0; i < comands.length; i++){
-            comands[i] = Pattern.compile(programs.get(i).substring(0,3));
+            comandsPattern[i] = Pattern.compile(programs.get(i).substring(0,3));
         }
-        comandsPattern = comands;
     }
 
     public void findGuide(){
@@ -80,7 +79,7 @@ public class Manual extends Functions{
     public boolean run() {
        if (machesAnyPattern()){
           findGuide();
-           return true;
+          return true;
        }
        return false;
 
