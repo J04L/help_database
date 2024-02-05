@@ -1,22 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-/*
-----COMANDOS----
-exit --> salir del modo escritura
-    -i --> al salir agrega "insert into 'table_name' values"
-    -s --> al salir inserta un separador (predeterminado: [, ])
- */
 public class Main {
     public static Scanner scan = new Scanner(System.in);
-    private static final ArrayList<String> programs = new ArrayList<>(Arrays.asList("create", "insert", "update", "manual"));
+
     public static void main(String[] args) {
         selectProgram();
     }
@@ -24,39 +11,48 @@ public class Main {
         while (true){
             System.out.print("------>>> ");
             ArrayList<String> comands = new ArrayList<>(Arrays.asList(scan.nextLine().split(" ")));
-            if (programs.contains(comands.get(0))) return comands;
+            //leemos la línea de comandos, la dividimos por espacios transformándola en una Lista
+
+            if (Functions.programs.contains(comands.get(0))) return comands;
+            //si el primer elemento de la lista coincide con alguno de los nombres de las funcionalidades devuelve la lista
             System.out.println("-----[ERROR] función " + comands.get(0) + " no registrada");
+            //si no...
         }
     }
     private static void selectProgram(){
         ArrayList<String> functionList = chooseFunction();
-        String program = functionList.get(0);
+        String programName = functionList.get(0);
+        //se coge el nombre de la función elegida
         functionList.remove(0);
+        //se elimina para mayor organización
 
-        String file = null;
-        if(Functions.filePattern.matcher(functionList.get(0)).matches()){
-            file = functionList.get(0).replaceAll("\"", "");
-            functionList.remove(0);
-        }
+        String file = Functions.getFile(functionList);
+        //se coge el nombre del archivo (si hay)
+        String[] comands = functionList.toArray(new String[0]);
+        //cambiamos el tipo a String[] para mejor rendimiento
 
-
-        switch(programs.indexOf(program)){
+        switch(Functions.programs.indexOf(programName)){
             case 0:
                 System.out.println("En proceso de creación...");
                 break;
             case 1:
-                String[] comands = functionList.toArray(new String[0]);
-                if(Insert.machesAnyPattern(comands)){
-                    Insert insert = new Insert(comands, file);
-                    insert.run();
-                }
-                else {
-                    System.out.println("-----[ERROR] algún comando incorrecto");
+                Insert insert = new Insert(comands, file);
+                if (!insert.run()) {
+                    System.out.println("----[ERROR] Sintax error");
                     selectProgram();
                 }
+                //si no se ha podido ejecutar volvemos a hacer el método selectProgram
                 break;
             case 2:
                 System.out.println("En proceso de creación....");
+                break;
+            case 3:
+                Manual manual = new Manual(comands);
+                if(!manual.run()) {
+                    System.out.println("----[ERROR] Sintax error");
+                    selectProgram();
+                }
+                //si no se ha podido ejecutar volvemos a hacer el método selectProgram
                 break;
         }
     }
