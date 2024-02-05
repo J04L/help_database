@@ -15,14 +15,17 @@ public class Functions {
     public static String getFile(ArrayList<String> functionList /*lista de comandos sin el nombre de la función*/){
         //se comprueba si se ha insertado un archivo y que el nombre siga con el patrón
         String file = null;
-        if(filePattern.matcher(functionList.get(0)).matches()){
-            //¿el primer elemento coincide con el patrón de archivos?
+        try{
+            if (filePattern.matcher(functionList.get(0)).matches()) {
+                //¿el primer elemento coincide con el patrón de archivos?
 
-            file = functionList.get(0);
-            //si conicide le quitamos las comillas
+                file = functionList.get(0);
+                //si conicide le quitamos las comillas
 
-            functionList.remove(0);
-            //y eliminamos el nombre del archivo de la lista de comandos para mayor organización
+                functionList.remove(0);
+                //y eliminamos el nombre del archivo de la lista de comandos para mayor organización
+            }
+        } catch (Exception e) {
         }
         return file;
     }

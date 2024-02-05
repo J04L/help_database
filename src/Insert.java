@@ -85,8 +85,8 @@ public class Insert extends Functions {
     private void valuesWriter(){
         Scanner scan = new Scanner(System.in);
         try(FileWriter writer = new FileWriter(file)){
+            System.out.println("write-->");
             while(true){
-                System.out.print("- ");
                 String row = scan.nextLine();
 
                 if (row.equals("exit")) break;

@@ -1,3 +1,5 @@
-me comes toda la polla 
-no me digas lo que tengo que hacer
-hijo de puta
+DGBD, Diseño y gestión de bases de datos, 6.0, 3.0
+FBD, Fundamentos de las bases de datos, 6.0, 1.5
+FP, Fundamentos de la programación, 9.0, 4.5
+HI, Historia de la informática, 4.5
+PC, Programación concurrente, 6.0, 1.5

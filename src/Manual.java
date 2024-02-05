@@ -7,8 +7,8 @@ public class Manual extends Functions{
         setComandsPattern();
     }
     private void setComandsPattern() {
-        comandsPattern = new Pattern[programs.size()-1];
-        for (int i =0; i < comands.length; i++){
+        comandsPattern = new Pattern[programs.size()];
+        for (int i =0; i < programs.size(); i++){
             comandsPattern[i] = Pattern.compile(programs.get(i).substring(0,3));
         }
     }
@@ -36,19 +36,20 @@ public class Manual extends Functions{
                 --------------------------------------------------------------------------------------------------------
                                                               ____INSERT____
                 [0] insert ----------> utilizar insert
-                [1] "ejemplo.txt" ---> archivo a leer (opcional)
-                [x] -s(, ) ----------> establecer separador (predeterminado: (,\\s))
+                [1] ejemplo.txt -----> archivo a leer (opcional)
+                [x] -s(__) ----------> establecer separador (predeterminado: (,\\s))
                 [x] -i --------------> poner nombre de la tabla y columnas
                 
                 aclaraciones:
                 -los [ ] que hay al principio son solo para mostrar el orden que has de seguir
                 no tienes que ponerlos en consola
-                -si no poner archivo se rellenará y leerá todo de insertValues.txt
+                -si no pones archivo se rellenará y leerá todo de un archivo auxiliar: insertValues.txt
+                -\\s simboliza un espacio, tienes que utilizar \\s en vez de el espacio normal en la funcion -s
                 
                 ejemplos:
                 insert -s(-) --> accedes a insert e indicas que la frase me-haría-una-paja
                                  te la separe así: ('me', 'haría', 'una', 'paja'),
-                insert "pizza.txt" -i -s(,) --> accedes a insert lee el texto que hay en pizza.txt
+                insert pizza.txt -i -s(,) --> accedes a insert lee el texto que hay en pizza.txt
                                                 y separa:
                                                 me,apetece,comerme,una,polla
                                                 pensabas,que,iba,a,decir,pizza?
@@ -61,7 +62,7 @@ public class Manual extends Functions{
                                                 insert into pepinillos(rabano, rabioli, ribosoma) values
                                                 ('me', 'apetece', 'comerme', 'una', 'polla'),
                                                 ('pensabas', 'que', 'iba', 'a', 'decir', 'pizza?')
-                insesrt -s(.) "pandillerto.txt" --> daría error porque el nombre del archivo no está
+                insesrt -s(.) pandillerto.txt --> daría error porque el nombre del archivo no está
                                                     en la segunda posición
                 --------------------------------------------------------------------------------------------------------""");
     }
