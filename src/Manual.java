@@ -27,13 +27,15 @@ public class Manual extends Functions{
                     System.out.println("En proceso de creación....");
                     break;
                 case 3:
-                    System.out.println("En proceso de creación..");
+                    manManual();
                     break;
             }
         }
     }
     private void manInsert(){
         System.out.println("""
+                --------------------------------------------------------------------------------------------------------
+                                                              ____INSERT____
                 [0] insert ----------> utilizar insert
                 [1] "ejemplo.txt" ---> archivo a leer (opcional)
                 [x] -s(, ) ----------> establecer separador (predeterminado: (,\\s))
@@ -61,7 +63,18 @@ public class Manual extends Functions{
                                                 ('me', 'apetece', 'comerme', 'una', 'polla'),
                                                 ('pensabas', 'que', 'iba', 'a', 'decir', 'pizza?')
                 insesrt -s(.) "pandillerto.txt" --> daría error porque el nombre del archivo no está
-                                                    en la segunda posición""");
+                                                    en la segunda posición
+                --------------------------------------------------------------------------------------------------------""");
+    }
+    private void manManual(){
+        System.out.println("""
+                --------------------------------------------------------------------------------------------------------
+                                                              ____MANUAL____
+                [0] manual ---> utilizar manual
+                [x] cre ------> muestra el manual de la funcion Create
+                [x] ins ------> muestra el manual de la función Insert
+                [x] upd ------> muestra el manual de la función Update
+                --------------------------------------------------------------------------------------------------------""");
     }
 
     public boolean run() {
