@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
-public class Main {
+public class help_database {
     public static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
