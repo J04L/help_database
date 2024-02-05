@@ -26,6 +26,7 @@ public class Functions {
                 //y eliminamos el nombre del archivo de la lista de comandos para mayor organización
             }
         } catch (Exception e) {
+            return file;
         }
         return file;
     }
